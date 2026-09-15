@@ -1,65 +1,193 @@
 # Degree-Based Reduction Reveals Distributed Period-Doubling Bifurcations in Complex Networks
 
-Reproducibility package for the manuscript. The repository contains MATLAB source code for the Hénon, mChialvo, and Rössler systems, one shared set of 22 network adjacency matrices, the author-curated critical-point workbook, and the Python utility used to build the coupling-range catalog.
+## Reproducibility Package
 
-## Start
+This repository provides the reproducibility materials associated with the manuscript **“Degree-Based Reduction Reveals Distributed Period-Doubling Bifurcations in Complex Networks.”**
 
-Open the repository root in MATLAB and run:
+The repository was prepared as part of the manuscript revision to address the reviewers’ requests regarding **code availability, reproducibility, network data, critical-point data, and transparency of the numerical workflow**.
+
+It contains the MATLAB source code required to reproduce the simulations for the **Hénon, mChialvo, and Rössler systems**, the complete set of network adjacency matrices used in the study, the author-curated critical-point workbook, and the Python utility used to generate the coupling-range catalog.
+
+The aim is to provide reviewers and readers with a clear connection between the numerical simulations, the network structures used in the manuscript, and the critical-point values reported in the analysis.
+
+---
+
+## Quick Start
+
+Open the repository root directory in MATLAB and run:
 
 ```matlab
 run_simulation
 ```
 
-Choose the dynamical system and one of the 22 networks, then enter the coupling interval, number of coupling samples, and random seed. MATLAB R2019b or later is recommended. Rössler simulations require `findpeaks` from Signal Processing Toolbox.
+The interactive workflow allows the user to:
 
-## Shared network data
+1. select the dynamical system;
+2. select one of the available network structures;
+3. specify the coupling interval;
+4. specify the number of coupling samples;
+5. specify the random seed; and
+6. run the corresponding full-network simulation.
 
-The same 22 adjacency matrices are used for all three dynamical systems. The original per-system copies were verified to be byte-for-byte identical, so they are stored once under `data/networks/` and shared by all simulation modules.
+MATLAB R2019b or later is recommended.
 
-Network set: 1 complete, 5 regular, 5 Watts–Strogatz, 5 Newman–Watts, 5 Barabási–Albert/scale-free, and 1 star network.
+For the Rössler simulations, `findpeaks` from the MATLAB Signal Processing Toolbox is required.
 
-The `.mat` files in `data/networks/` are **input adjacency matrices**, not simulation outputs.
+---
 
-## Critical-point workbook and range catalog
+## Shared Network Data
 
-`data/manually_created_critical_points.xlsx` is the author-curated workbook used for the critical-point tables. Values labeled as real critical points were read manually from bifurcation diagrams; no automatic critical-point detector is claimed.
+All three dynamical systems use the same set of network adjacency matrices.
 
-`data/network_ranges.csv` contains system/network coupling-range entries. The default suggested interval is generated as:
+During preparation of the reproducibility package, the original network files stored separately for the Hénon, mChialvo, and Rössler implementations were checked and confirmed to be **byte-for-byte identical**. To avoid unnecessary duplication, a single shared copy is therefore stored under:
+
+```text
+data/networks/
+```
+
+The network set contains:
+
+- complete network;
+- regular networks;
+- Watts–Strogatz networks;
+- Newman–Watts networks;
+- Barabási–Albert / scale-free networks; and
+- star network.
+
+The `.mat` files contained in `data/networks/` are **input adjacency matrices used by the simulations** and should not be interpreted as pre-generated simulation results.
+
+---
+
+## Critical-Point Data
+
+The file
+
+```text
+data/manually_created_critical_points.xlsx
+```
+
+contains the critical-point data used in the manuscript analysis.
+
+Importantly, the critical points identified as **real/observed critical points were determined manually from the corresponding bifurcation diagrams**.
+
+No automatic critical-point detection algorithm is claimed or used for these manually reported values.
+
+This distinction is preserved explicitly in the reproducibility package so that the origin of the reported critical points remains transparent.
+
+---
+
+## Coupling-Range Catalog
+
+The file
+
+```text
+data/network_ranges.csv
+```
+
+provides the coupling intervals associated with the different dynamical-system/network combinations.
+
+The suggested simulation interval is generated from the critical-point workbook according to:
 
 ```text
 suggested_min = 0
 suggested_max = 1.10 × largest positive finite critical-point value
 ```
 
-considering both predicted and manually read values for the selected network and system.
+where the largest relevant positive finite critical-point value is considered for the selected dynamical system and network.
 
-To regenerate the CSV from the workbook:
+The additional margin is included so that the simulated coupling interval extends beyond the critical transition region rather than terminating exactly at the largest tabulated critical point.
+
+---
+
+## Regenerating the Range Catalog
+
+The coupling-range catalog can be regenerated directly from the author-curated workbook using:
 
 ```bash
 cd data
 python build_range_catalog.py
 ```
 
-Python 3 and `openpyxl` are required. The builder also verifies that every referenced network exists under `data/networks/`.
+Requirements:
 
-## Repository contents
+```text
+Python 3
+openpyxl
+```
 
-| Path | Contents |
+The script reads the workbook, constructs the coupling-range catalog, and verifies that every referenced network file exists under:
+
+```text
+data/networks/
+```
+
+This provides a reproducible link between the manually curated critical-point data and the coupling intervals used for the numerical simulations.
+
+---
+
+## Repository Structure
+
+| Path | Description |
 | --- | --- |
 | `run_simulation.m` | Main interactive MATLAB entry point |
 | `common/` | Shared interactive simulation controller |
-| `data/networks/` | Shared 22 input adjacency matrices |
+| `data/networks/` | Network adjacency matrices used as simulation inputs |
 | `data/manually_created_critical_points.xlsx` | Author-curated critical-point workbook |
-| `data/network_ranges.csv` | Generated coupling-range catalog |
-| `data/build_range_catalog.py` | Python range-catalog generator |
-| `henon/` | Hénon source code |
-| `mchialvo/` | mChialvo source code |
-| `rossler/` | Rössler source code |
+| `data/network_ranges.csv` | Coupling-range catalog derived from the workbook |
+| `data/build_range_catalog.py` | Python utility for rebuilding the range catalog |
+| `henon/` | Hénon full-network and reduced-model source code |
+| `mchialvo/` | mChialvo full-network and reduced-model source code |
+| `rossler/` | Rössler full-network and reduced-model source code |
 
-## Output policy
+---
 
-Pre-generated simulation results and figures are intentionally not included in this repository. Running the MATLAB workflow creates `.mat` numerical outputs and `.png` bifurcation figures locally under each system's `results/` directory. Generated reduced-model `.mat`/`.png` files are also excluded. This keeps the repository focused on source code, input networks, and the tabulated critical-point data used to define the suggested simulation ranges.
+## Reproducibility and Output Policy
 
-## Validation note
+To keep the repository focused on the material required to **independently reproduce the numerical analysis**, pre-generated simulation outputs are intentionally not distributed with the repository.
 
-The shared network files, workbook-to-network mappings, and range-catalog regeneration were checked during repository preparation. MATLAB/Octave was not available in the preparation environment, so a complete end-to-end MATLAB execution was not performed here.
+In particular, generated:
+
+```text
+.mat
+.png
+```
+
+simulation-result files are excluded.
+
+Running the MATLAB workflow locally generates the numerical outputs and bifurcation figures in the corresponding system output directories.
+
+The repository therefore provides the components required to regenerate the numerical results rather than supplying previously generated output files.
+
+The `.mat` files located under `data/networks/` are an exception because they are **input network adjacency matrices**, not simulation outputs.
+
+---
+
+## Relation to the Manuscript Revision
+
+This repository was organized specifically to make the computational procedure used in the revised manuscript independently inspectable and reproducible.
+
+In response to the reproducibility-related points raised during peer review, the revision package now provides:
+
+- the source code for all three dynamical systems considered in the manuscript;
+- the network adjacency matrices used in the simulations;
+- the manually curated critical-point data;
+- the coupling-range information used for numerical runs;
+- the Python procedure connecting the critical-point workbook to the coupling-range catalog; and
+- a unified MATLAB entry point for reproducing the simulations.
+
+Thus, the numerical workflow underlying the revised manuscript can be inspected and reproduced directly from the materials provided in this repository.
+
+---
+
+## Validation Note
+
+As part of repository preparation:
+
+- the shared network files were checked for consistency across the three dynamical systems;
+- the workbook-to-network mappings were checked;
+- the coupling-range catalog generation procedure was validated against the supplied workbook; and
+- the repository structure was reorganized so that common input data are stored only once.
+
+MATLAB/Octave was not available in the repository-preparation environment; therefore, a complete end-to-end execution of all MATLAB simulations was not performed in that environment.
+
+The simulation source code, input data, parameter-selection workflow, and critical-point data required for independent execution are nevertheless provided in the repository.
