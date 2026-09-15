@@ -19,7 +19,7 @@ jobs:
       - name: Rebuild exact workbook
         shell: bash
         run: |
-          cat .xlsx_stage/p00 .xlsx_stage/p01 .xlsx_stage/p02 .xlsx_stage/p03 .xlsx_stage/p04 .xlsx_stage/p05 .xlsx_stage/p06 .xlsx_stage/p07 .xlsx_stage/p08 .xlsx_stage/p09 .xlsx_stage/p10 .xlsx_stage/p11 > /tmp/workbook.b64
+          cat .xlsx_stage/p00a .xlsx_stage/p00b .xlsx_stage/p00c .xlsx_stage/p00d .xlsx_stage/p00e .xlsx_stage/p00f .xlsx_stage/p00g .xlsx_stage/p01 .xlsx_stage/p02 .xlsx_stage/p03 .xlsx_stage/p04 .xlsx_stage/p05a .xlsx_stage/p05b .xlsx_stage/p05c .xlsx_stage/p05d .xlsx_stage/p05e .xlsx_stage/p05f .xlsx_stage/p05g .xlsx_stage/p06 .xlsx_stage/p07 .xlsx_stage/p08 .xlsx_stage/p09 .xlsx_stage/p10 .xlsx_stage/p11 > /tmp/workbook.b64
           base64 -d /tmp/workbook.b64 > data/manually_created_critical_points.xlsx
           test "$(stat -c%s data/manually_created_critical_points.xlsx)" = "62784"
           echo "1bad3ff62f6aa51ac453e2759bd2612d4945d45bfe60e90d9ec7258da4bc26a3  data/manually_created_critical_points.xlsx" | sha256sum -c -
