@@ -1,0 +1,1 @@
+# degree-based-reduction-reveals-distributed-period-doubling-bifurcations-in-complex-networks
