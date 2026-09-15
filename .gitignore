@@ -1,0 +1,16 @@
+# MATLAB simulation outputs (network input MAT files under data/networks are tracked)
+henon/results/
+mchialvo/results/
+rossler/results/
+
+# Generated reduced-model outputs
+henon/reduced_model/*.mat
+henon/reduced_model/*.png
+mchialvo/reduced_model/*.mat
+mchialvo/reduced_model/*.png
+rossler/reduced_model/*.mat
+rossler/reduced_model/*.png
+
+# Python cache
+__pycache__/
+*.pyc
