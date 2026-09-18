@@ -51,7 +51,9 @@ Network families comprise one complete network, five regular, five Watts–Strog
 
 The runner saves a numerical `.mat` file and a `.png` bifurcation figure in `<system>/results/`, using a system/network/timestamp filename. Existing repository ignore rules exclude generated results. Original simulation outputs are not currently distributed here.
 
-The numerical file includes parameters, network matrix and metadata. See [output details](docs/reproducibility.md). Manual critical-point readings are a separate step and are not automatically written back into the workbook.
+The numerical file includes parameters, network matrix and metadata. See [output details](docs/reproducibility.md). After the bifurcation figure is drawn, the runner displays a degree-based cluster summary in the Command Window. Each row identifies the cluster, degree, number of nodes and effective beta; the node IDs are printed underneath. The same summary is appended to the MAT file and exported as `<output_name>_clusters.csv`. Node IDs are the 1-based row indices of the saved adjacency matrix. Clusters are ordered by ascending degree, matching `calc_beff.m`. This reporting is available for all three systems.
+
+Manual critical-point readings are a separate step and are not automatically written back into the workbook.
 
 ## Suggested ranges
 

@@ -9,6 +9,14 @@
 
 The coupling arrays and corresponding output arrays are used to plot the bifurcation diagram. The controller saves MAT v7.3 and then attempts to save a PNG at 200 dpi. Metadata records system, network label/filename, parameters, MATLAB version, start time and the manual reading method. It does not record a repository commit or a historical source figure for each workbook entry.
 
+## Cluster reporting
+
+After plotting, the runner calls the existing `calc_beff(A)` and groups nodes by exact equality of `sum(A,2)`. Cluster IDs follow ascending degree, matching the existing beta ordering. The Command Window and the new `_clusters.csv` report `ClusterID`, `Degree`, `NodeCount`, `BetaEff` and `NodeIDs`.
+
+The MAT file additionally stores `cluster_summary`, `node_cluster` and `Beff` for every system. `node_cluster(i)` gives the cluster ID of node `i`, where node IDs are 1-based row indices in `A`. Cluster metadata is appended after the figure is drawn. The original beta formula and simulation equations are unchanged. If the original beta calculation produces an undefined value, it is preserved and a warning is displayed.
+
+The reporting addition has not been executed in MATLAB in the preparation environment.
+
 ## Checks performed during data restoration
 
 - The restored workbook matches the original author upload byte-for-byte (62,784 bytes).

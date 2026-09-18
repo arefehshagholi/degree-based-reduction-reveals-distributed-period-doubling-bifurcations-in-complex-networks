@@ -49,6 +49,41 @@ end
 fig=figure('Color','w'); ax=axes('Parent',fig); hold(ax,'on'); colors=lines(numel(xdata));
 for node=1:numel(xdata), plot(ax,xdata{node},ydata{node},'.','Color',colors(node,:),'MarkerSize',3); end
 xlabel(ax,'Coupling strength'); ylabel(ax,'x'); title(ax,sprintf('%s | %s',system_id,char(selected.network_label)),'Interpreter','none'); print(fig,[output_base '.png'],'-dpng','-r200');
+
+drawnow;
+[cluster_summary, node_cluster, Beff] = summarize_degree_clusters(A);
+fprintf('\nDegree-based clusters for %s | %s\n',system_id,char(selected.network_label));
+disp(cluster_summary(:, {'ClusterID','Degree','NodeCount','BetaEff'}));
+for c = 1:height(cluster_summary)
+    fprintf('Cluster %d | degree %.15g | %d nodes | beta %.15g | node IDs: %s\n', ...
+        cluster_summary.ClusterID(c), cluster_summary.Degree(c), ...
+        cluster_summary.NodeCount(c), cluster_summary.BetaEff(c), ...
+        char(cluster_summary.NodeIDs(c)));
+end
+metadata.clustering_method = 'Exact equality of sum(A,2), ascending degree';
+metadata.node_id_convention = '1-based row index in saved adjacency matrix A';
+save([output_base '.mat'],'cluster_summary','node_cluster','Beff','metadata','-append');
+writetable(cluster_summary,[output_base '_clusters.csv']);
+fprintf('Saved cluster summary to %s\n',[output_base '_clusters.csv']);
+end
+function [cluster_summary, node_cluster, Beff] = summarize_degree_clusters(A)
+% Match the cluster ordering used by the existing calc_beff function.
+[degree_values,~,node_cluster] = unique(sum(A,2));
+Beff = calc_beff(A);
+cluster_count = numel(degree_values);
+assert(numel(Beff)==cluster_count,'Cluster and beta counts differ.');
+node_counts = accumarray(node_cluster,1,[cluster_count,1]);
+node_ids = strings(cluster_count,1);
+for c = 1:cluster_count
+    node_ids(c) = string(strtrim(sprintf('%d ',find(node_cluster==c))));
+end
+% Preserve calc_beff results, including undefined values for zero-total clusters.
+if any(~isfinite(Beff))
+    warning('paper:UndefinedClusterBeta', ...
+        'Some cluster beta values are undefined; the original calc_beff values are preserved.');
+end
+cluster_summary = table((1:cluster_count)',degree_values,node_counts,Beff(:),node_ids, ...
+    'VariableNames',{'ClusterID','Degree','NodeCount','BetaEff','NodeIDs'});
 end
 function value=ask_number(label,default,minimum,maximum,integer_only)
 while true
