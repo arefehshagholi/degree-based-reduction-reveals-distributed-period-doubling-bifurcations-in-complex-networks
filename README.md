@@ -2,11 +2,11 @@
 
 Research materials accompanying the manuscript of the same title: MATLAB full-network simulations for Hénon, mChialvo and Rössler, 22 shared network adjacency matrices, the author-supplied critical-point workbook, and suggested coupling ranges.
 
-## Scope and current limitations
+## Repository scope
 
 The `Real` critical points in the workbook were read manually from bifurcation diagrams and entered by the author. There is no automatic critical-point detector in this repository. The predicted columns are supplied tabulated results.
 
-The current repository does not contain a complete reduced-model prediction pipeline, network-generation scripts, or the original simulation-result MAT files and figures supporting every reported value. The shared network matrices allow simulations of those supplied networks. The workbook is a table of results, not the underlying simulation trajectories. These materials support inspection and new full-network runs; they do not establish complete independent reproduction of Tables S1–S3.
+The repository provides full-network simulation code and the supplied network matrices. The `calc_beff.m` helper in each system directory computes effective parameters for groups of nodes with equal degree. The workbook contains tabulated results. Original simulation-result MAT files and figures are not distributed in this repository; new runs generate their own outputs.
 
 ## Run a simulation
 
@@ -73,6 +73,6 @@ This command overwrites `network_ranges.csv`, including any manual edits to it.
 
 ## Data availability and citation
 
-The source files, shared adjacency matrices, manually compiled critical-point workbook and range catalog are publicly available in this repository. The original simulation trajectories and a complete reduced-model reproduction pipeline are not included in the current version.
+The source files, shared adjacency matrices, manually compiled critical-point workbook and range catalog are publicly available in this repository. Original simulation trajectories are not included in the current version.
 
 When referring to these materials, include the manuscript title, repository URL and the exact commit used. Full publication metadata and a software/data license have not yet been specified; no DOI or reuse license is asserted here.

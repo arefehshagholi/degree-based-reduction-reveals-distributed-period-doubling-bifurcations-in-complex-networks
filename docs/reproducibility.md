@@ -24,8 +24,7 @@ These checks validate file integrity and range generation. They do not validate 
 1. Original numerical outputs and figures supporting the manual readings, with a mapping to workbook rows or node/cluster identifiers.
 2. Historical coupling grids, seeds, initialization, transient settings and solver settings where available.
 3. The visual criterion used to identify each transition, refinement procedure, treatment of ambiguous cases and meaning of missing entries.
-4. The complete reduced-model prediction procedure and its connection to the supplied predicted columns.
-5. MATLAB execution checks for each dynamical system and comparison with representative manuscript results.
-6. Confirmed author/publication metadata, a chosen reuse license, and a stable release to cite.
+4. MATLAB execution checks for each dynamical system and comparison with representative manuscript results.
+5. Confirmed author/publication metadata, a chosen reuse license, and a stable release to cite.
 
 Newly generated runs should be labeled as reruns, with their actual settings and commit recorded. They should not be presented as the original evidence unless that provenance can be established.
