@@ -25,6 +25,6 @@ These checks validate file integrity and range generation. They do not validate 
 2. Historical coupling grids, seeds, initialization, transient settings and solver settings where available.
 3. The visual criterion used to identify each transition, refinement procedure, treatment of ambiguous cases and meaning of missing entries.
 4. MATLAB execution checks for each dynamical system and comparison with representative manuscript results.
-5. Confirmed author/publication metadata, a chosen reuse license, and a stable release to cite.
+5. Confirmed author/publication metadata, a stable release to cite, and a separate reuse license for research data. The software license is provided in `LICENSE`.
 
 Newly generated runs should be labeled as reruns, with their actual settings and commit recorded. They should not be presented as the original evidence unless that provenance can be established.

@@ -75,4 +75,12 @@ This command overwrites `network_ranges.csv`, including any manual edits to it.
 
 The source files, shared adjacency matrices, manually compiled critical-point workbook and range catalog are publicly available in this repository. Original simulation trajectories are not included in the current version.
 
-When referring to these materials, include the manuscript title, repository URL and the exact commit used. Full publication metadata and a software/data license have not yet been specified; no DOI or reuse license is asserted here.
+When referring to these materials, include the manuscript title, repository URL and the exact commit used. Full publication metadata and a DOI have not yet been specified.
+
+## License
+
+The MATLAB and Python source code and accompanying software documentation are licensed under the [MIT License](LICENSE). This permits reuse, modification and redistribution, including commercial use, provided the copyright and permission notice are retained.
+
+This software license does not cover the manuscript, the Excel workbook, the CSV data, network MAT files or simulation-result data and figures. No separate reuse license is granted for those research materials by this notice. Existing third-party notices, where applicable, remain in effect.
+
+For academic use, please cite the manuscript and the repository commit used. This citation request does not add a condition to the MIT License.
